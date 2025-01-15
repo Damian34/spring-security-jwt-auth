@@ -1,0 +1,36 @@
+volumes:
+  api-db:
+    driver: local
+
+networks:
+  api-network:
+
+services:
+  postgres-db:
+    image: "postgres:latest"
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - api-db:/var/lib/postgresql/data
+    networks:
+      - api-network
+  security-api:
+    build:
+      context: .
+      dockerfile: dockerfile
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      POSTGRES_HOST: postgres-db
+      POSTGRES_PORT: 5432
+      POSTGRES_NAME: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports: [ "8081:8080" ]
+    networks:
+      - api-network
