@@ -1,15 +1,20 @@
 package com.example.security;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest
 @Profile("test")
 @Testcontainers
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public abstract class IntegrationTestBase {
+
+    @Autowired
+    protected ObjectMapper mapper;
 
     @BeforeAll
     static void setUp() {

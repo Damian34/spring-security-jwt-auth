@@ -11,3 +11,11 @@ spring:
         format-sql: true
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
+
+security:
+  jwt:
+    secret-key: ebf96689f4d8e85fc5e6e2fd9f59d70775691d57ee0f2e81f35d10181387f963
+    expiration-time: 1800 # in seconds
+  refresh-token:
+    expiration-time: 86400 # in seconds
+    scheduler-clean-delay: 3600000
