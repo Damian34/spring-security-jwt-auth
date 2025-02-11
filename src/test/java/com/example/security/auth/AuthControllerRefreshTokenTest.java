@@ -2,8 +2,8 @@ package com.example.security.auth;
 
 import com.example.security.IntegrationTestBase;
 import com.example.security.TestUserHelper;
-import com.example.security.auth.controller.protocol.request.RefreshTokenRequest;
-import com.example.security.auth.controller.protocol.response.RefreshTokenResponse;
+import com.example.security.auth.api.protocol.request.RefreshTokenRequest;
+import com.example.security.auth.api.protocol.response.RefreshTokenResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

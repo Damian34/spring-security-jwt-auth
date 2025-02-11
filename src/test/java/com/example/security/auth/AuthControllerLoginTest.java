@@ -2,7 +2,7 @@ package com.example.security.auth;
 
 import com.example.security.IntegrationTestBase;
 import com.example.security.TestUserHelper;
-import com.example.security.auth.controller.protocol.request.LoginRequest;
+import com.example.security.auth.api.protocol.request.LoginRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

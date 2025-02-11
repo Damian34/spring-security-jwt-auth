@@ -1,14 +1,14 @@
-package com.example.security.auth.controller;
+package com.example.security.auth.api;
 
-import com.example.security.auth.controller.protocol.request.LoginRequest;
-import com.example.security.auth.controller.protocol.request.RegistryRequest;
-import com.example.security.auth.controller.protocol.request.RefreshTokenRequest;
-import com.example.security.auth.controller.protocol.response.LoginResponse;
+import com.example.security.auth.api.protocol.request.LoginRequest;
+import com.example.security.auth.api.protocol.request.RegistryRequest;
+import com.example.security.auth.api.protocol.request.RefreshTokenRequest;
+import com.example.security.auth.api.protocol.response.LoginResponse;
 import com.example.security.auth.service.refresh_token.RefreshTokenService;
 import com.example.security.auth.service.user.UserLoginService;
 import com.example.security.auth.service.user.UserRegistryService;
 import com.example.security.common.protocol.response.MessageResponse;
-import com.example.security.auth.controller.protocol.response.RefreshTokenResponse;
+import com.example.security.auth.api.protocol.response.RefreshTokenResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

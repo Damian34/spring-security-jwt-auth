@@ -1,4 +1,4 @@
-package com.example.security.auth.controller.protocol.response;
+package com.example.security.auth.api.protocol.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

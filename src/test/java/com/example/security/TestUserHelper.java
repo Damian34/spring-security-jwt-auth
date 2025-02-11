@@ -1,8 +1,8 @@
 package com.example.security;
 
-import com.example.security.auth.controller.protocol.request.LoginRequest;
-import com.example.security.auth.controller.protocol.request.RegistryRequest;
-import com.example.security.auth.controller.protocol.response.LoginResponse;
+import com.example.security.auth.api.protocol.request.LoginRequest;
+import com.example.security.auth.api.protocol.request.RegistryRequest;
+import com.example.security.auth.api.protocol.response.LoginResponse;
 import com.example.security.auth.infrastructure.repository.RefreshTokenRepository;
 import com.example.security.auth.service.user.UserLoginService;
 import com.example.security.auth.service.user.UserRegistryService;

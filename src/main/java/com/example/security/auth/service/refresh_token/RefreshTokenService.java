@@ -1,7 +1,7 @@
 package com.example.security.auth.service.refresh_token;
 
-import com.example.security.auth.controller.protocol.request.RefreshTokenRequest;
-import com.example.security.auth.controller.protocol.response.RefreshTokenResponse;
+import com.example.security.auth.api.protocol.request.RefreshTokenRequest;
+import com.example.security.auth.api.protocol.response.RefreshTokenResponse;
 import com.example.security.auth.infrastructure.entity.RefreshToken;
 import com.example.security.auth.infrastructure.repository.RefreshTokenRepository;
 import com.example.security.auth.exception.InvalidRefreshTokenException;

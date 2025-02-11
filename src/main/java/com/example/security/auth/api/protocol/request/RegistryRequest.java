@@ -1,4 +1,4 @@
-package com.example.security.auth.controller.protocol.request;
+package com.example.security.auth.api.protocol.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
