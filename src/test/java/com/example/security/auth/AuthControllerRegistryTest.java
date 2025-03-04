@@ -2,7 +2,7 @@ package com.example.security.auth;
 
 import com.example.security.IntegrationTestBase;
 import com.example.security.TestUserHelper;
-import com.example.security.auth.controller.protocol.request.RegistryRequest;
+import com.example.security.auth.api.protocol.request.RegistryRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

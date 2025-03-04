@@ -1,7 +1,7 @@
 package com.example.security.auth.service.user;
 
-import com.example.security.auth.controller.protocol.request.LoginRequest;
-import com.example.security.auth.controller.protocol.response.LoginResponse;
+import com.example.security.auth.api.protocol.request.LoginRequest;
+import com.example.security.auth.api.protocol.response.LoginResponse;
 import com.example.security.auth.service.jwt.JwtService;
 import com.example.security.auth.service.refresh_token.RefreshTokenService;
 import com.example.security.shared.infrastructure.entity.user.User;
