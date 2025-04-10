@@ -7,29 +7,24 @@ networks:
 
 services:
   postgres-db:
-    image: "postgres:latest"
+    image: "postgres:17.4-alpine"
     restart: always
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports: [ "5432:5432" ]
     volumes:
       - api-db:/var/lib/postgresql/data
     networks:
       - api-network
   security-api:
-    build:
-      context: .
-      dockerfile: dockerfile
+    build: .
     restart: always
     environment:
-      SPRING_PROFILES_ACTIVE: docker
-      POSTGRES_HOST: postgres-db
-      POSTGRES_PORT: 5432
-      POSTGRES_NAME: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      SPRING_DATASOURCE_URL: ${POSTGRES_URL}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
     ports: [ "8081:8080" ]
     networks:
       - api-network
