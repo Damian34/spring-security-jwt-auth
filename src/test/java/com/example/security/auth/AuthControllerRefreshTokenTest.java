@@ -1,15 +1,18 @@
 package com.example.security.auth;
 
-import com.example.security.IntegrationTestBase;
+import com.example.security.TestContainerInitializer;
 import com.example.security.TestUserHelper;
 import com.example.security.auth.api.protocol.request.RefreshTokenRequest;
 import com.example.security.auth.api.protocol.response.RefreshTokenResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -17,10 +20,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-public class AuthControllerRefreshTokenTest extends IntegrationTestBase {
+@SpringBootTest
+@ContextConfiguration(initializers = TestContainerInitializer.class)
+class AuthControllerRefreshTokenTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    protected ObjectMapper mapper;
 
     @Autowired
     private TestUserHelper helper;

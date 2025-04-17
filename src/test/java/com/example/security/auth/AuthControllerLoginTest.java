@@ -1,14 +1,17 @@
 package com.example.security.auth;
 
-import com.example.security.IntegrationTestBase;
+import com.example.security.TestContainerInitializer;
 import com.example.security.TestUserHelper;
 import com.example.security.auth.api.protocol.request.LoginRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -16,10 +19,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-class AuthControllerLoginTest extends IntegrationTestBase {
+@SpringBootTest
+@ContextConfiguration(initializers = TestContainerInitializer.class)
+class AuthControllerLoginTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    protected ObjectMapper mapper;
 
     @Autowired
     private TestUserHelper helper;

@@ -1,8 +1,12 @@
 package com.example.security;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
-class ApplicationContextTest extends IntegrationTestBase {
+@SpringBootTest
+@ContextConfiguration(initializers = TestContainerInitializer.class)
+class ApplicationContextTest {
 
     @Test
     void springContextTest() {
