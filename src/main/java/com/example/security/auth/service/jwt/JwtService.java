@@ -1,6 +1,6 @@
 package com.example.security.auth.service.jwt;
 
-import com.example.security.shared.infrastructure.entity.user.User;
+import com.example.security.shared.model.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -3,7 +3,7 @@ package com.example.security.auth.service.user;
 import com.example.security.auth.api.protocol.request.RegistryRequest;
 import com.example.security.auth.service.user.validator.UserValidator;
 import com.example.security.common.protocol.response.MessageResponse;
-import com.example.security.shared.infrastructure.entity.user.User;
+import com.example.security.shared.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

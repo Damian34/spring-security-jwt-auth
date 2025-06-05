@@ -4,7 +4,7 @@ import com.example.security.auth.api.protocol.request.LoginRequest;
 import com.example.security.auth.api.protocol.response.LoginResponse;
 import com.example.security.auth.service.jwt.JwtService;
 import com.example.security.auth.service.refresh_token.RefreshTokenService;
-import com.example.security.shared.infrastructure.entity.user.User;
+import com.example.security.shared.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,6 +1,6 @@
 package com.example.security.auth.service.refresh_token;
 
-import com.example.security.auth.infrastructure.repository.RefreshTokenRepository;
+import com.example.security.auth.model.refreshtoken.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

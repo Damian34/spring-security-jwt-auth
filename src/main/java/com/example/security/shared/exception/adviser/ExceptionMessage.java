@@ -1,4 +1,4 @@
-package com.example.security.shared.exception.adviser.vo;
+package com.example.security.shared.exception.adviser;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

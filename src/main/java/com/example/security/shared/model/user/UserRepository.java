@@ -1,6 +1,5 @@
-package com.example.security.shared.infrastructure.repository;
+package com.example.security.shared.model.user;
 
-import com.example.security.shared.infrastructure.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

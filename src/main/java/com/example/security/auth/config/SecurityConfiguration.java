@@ -1,5 +1,6 @@
-package com.example.security.auth.infrastructure.config;
+package com.example.security.auth.config;
 
+import com.example.security.auth.config.data.CorsProperties;
 import com.example.security.auth.service.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -15,19 +16,19 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CorsProperties corsProperties;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**")
                         .permitAll()
@@ -40,16 +41,18 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    /**
+     * CORS configuration added only for learning purposes.
+     * In this backend-only application, CORS is not actually needed.
+     * CORS is a browser security feature that controls which origins (domains/ports)
+     * are allowed to make requests to this API through a web browser.
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:8080",
-                "http://localhost:8081"
-        ));
-        configuration.setAllowedMethods(List.of("GET","POST"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-
+        configuration.setAllowedHeaders(corsProperties.getAllowedHeaders());
+        configuration.setAllowedMethods(corsProperties.getAllowedMethods());
+        configuration.setAllowedOrigins(corsProperties.getAllowedOrigins());
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

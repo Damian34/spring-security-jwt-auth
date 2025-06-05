@@ -1,11 +1,11 @@
 package com.example.security.auth.service.user;
 
 import com.example.security.auth.exception.UserNotFoundException;
-import com.example.security.shared.infrastructure.entity.user.User;
-import com.example.security.shared.infrastructure.repository.UserRepository;
-import com.example.security.shared.infrastructure.entity.user.role.Role;
-import com.example.security.shared.infrastructure.entity.user.role.RoleName;
-import com.example.security.shared.infrastructure.repository.RoleRepository;
+import com.example.security.shared.model.user.User;
+import com.example.security.shared.model.user.UserRepository;
+import com.example.security.shared.model.role.Role;
+import com.example.security.shared.model.role.RoleName;
+import com.example.security.shared.model.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

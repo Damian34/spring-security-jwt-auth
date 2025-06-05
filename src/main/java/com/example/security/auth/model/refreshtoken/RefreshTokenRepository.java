@@ -1,6 +1,5 @@
-package com.example.security.auth.infrastructure.repository;
+package com.example.security.auth.model.refreshtoken;
 
-import com.example.security.auth.infrastructure.entity.RefreshToken;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

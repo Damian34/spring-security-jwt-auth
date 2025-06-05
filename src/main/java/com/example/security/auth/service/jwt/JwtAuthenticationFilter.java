@@ -37,14 +37,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
 
-        if (authHeader == null) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             createErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Authorization header is missing", null);
-            return;
-        }
-        if (!authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            createErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Authorization header is invalid", null);
             return;
         }
 
@@ -54,17 +49,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
             if (username != null && authentication == null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                if (jwtService.isTokenValid(jwt, userDetails)) {
-                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                            userDetails,
-                            null,
-                            userDetails.getAuthorities()
-                    );
-                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                var authToken = createAuthToken(jwt, username, request);
+                if (authToken != null) {
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 } else {
                     createErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Expired JWT token", null);
+                    return;
                 }
             }
 
@@ -72,8 +62,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (JwtException e) {
             createErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token", e);
         } catch (Exception e) {
-            createErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage(), e);
+            createErrorResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error", e);
         }
+    }
+
+    private UsernamePasswordAuthenticationToken createAuthToken(String jwt, String username, HttpServletRequest request) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if (jwtService.isTokenValid(jwt, userDetails)) {
+            var authToken = new UsernamePasswordAuthenticationToken(
+                    userDetails,
+                    null,
+                    userDetails.getAuthorities()
+            );
+            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            return authToken;
+        }
+        return null;
     }
 
     private void createErrorResponse(HttpServletResponse response, int status, String message, Exception e) throws IOException {

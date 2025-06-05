@@ -1,6 +1,6 @@
-package com.example.security.auth.infrastructure.entity;
+package com.example.security.auth.model.refreshtoken;
 
-import com.example.security.shared.infrastructure.entity.user.User;
+import com.example.security.shared.model.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RefreshToken {
 
-    private final static String REFRESH_TOKEN_SEQUENCE = "refresh_tokens_id_seq";
+    private static final String REFRESH_TOKEN_SEQUENCE = "refresh_tokens_id_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = REFRESH_TOKEN_SEQUENCE)

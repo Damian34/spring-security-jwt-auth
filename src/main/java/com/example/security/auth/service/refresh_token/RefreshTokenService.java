@@ -2,8 +2,8 @@ package com.example.security.auth.service.refresh_token;
 
 import com.example.security.auth.api.protocol.request.RefreshTokenRequest;
 import com.example.security.auth.api.protocol.response.RefreshTokenResponse;
-import com.example.security.auth.infrastructure.entity.RefreshToken;
-import com.example.security.auth.infrastructure.repository.RefreshTokenRepository;
+import com.example.security.auth.model.refreshtoken.RefreshToken;
+import com.example.security.auth.model.refreshtoken.RefreshTokenRepository;
 import com.example.security.auth.exception.InvalidRefreshTokenException;
 import com.example.security.auth.service.user.UserAuthService;
 import com.example.security.auth.service.jwt.JwtService;

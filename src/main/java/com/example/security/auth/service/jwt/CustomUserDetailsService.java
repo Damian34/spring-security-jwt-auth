@@ -1,6 +1,6 @@
 package com.example.security.auth.service.jwt;
 
-import com.example.security.shared.infrastructure.repository.UserRepository;
+import com.example.security.shared.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

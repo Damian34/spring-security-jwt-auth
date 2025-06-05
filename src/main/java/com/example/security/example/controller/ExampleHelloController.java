@@ -1,7 +1,7 @@
 package com.example.security.example.controller;
 
 import com.example.security.common.protocol.response.MessageResponse;
-import com.example.security.shared.infrastructure.entity.user.User;
+import com.example.security.shared.model.user.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;

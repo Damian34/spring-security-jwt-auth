@@ -1,6 +1,6 @@
-package com.example.security.shared.infrastructure.entity.user;
+package com.example.security.shared.model.user;
 
-import com.example.security.shared.infrastructure.entity.user.role.Role;
+import com.example.security.shared.model.role.Role;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,13 +28,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@DynamicUpdate // update only changed fields at Entity, in result it skip a lot not needed updates
 @Entity
 @Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails {
-    private final static String USER_SEQUENCE = "users_id_seq";
+    private static final String USER_SEQUENCE = "users_id_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = USER_SEQUENCE)
@@ -47,6 +49,16 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    /**
+     * Note (solve N+1 problem here):
+     * 1.
+     * FetchType.EAGER is loading "roles" along with User entity,
+     * EAGER is also forcing JOIN operation, so that create only 1 query
+     * 2.
+     * FetchType.LAZY is loading "roles" not along with User but at 1st access to the field,
+     * and along with @BatchSize(size = 10) will do much less loading,
+     * so that create 1 query for users and 1 query for each batch loading
+     */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

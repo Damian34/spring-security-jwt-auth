@@ -1,4 +1,4 @@
-package com.example.security.shared.infrastructure.entity.user.role;
+package com.example.security.shared.model.role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Role {
 
-    private final static String ROLES_SEQUENCE = "roles_id_seq";
+    private static final String ROLES_SEQUENCE = "roles_id_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ROLES_SEQUENCE)
