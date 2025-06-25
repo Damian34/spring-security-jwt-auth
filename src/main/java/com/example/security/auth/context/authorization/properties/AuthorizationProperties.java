@@ -1,4 +1,4 @@
-package com.example.security.auth.context.permission.properties;
+package com.example.security.auth.context.authorization.properties;
 
 import com.example.security.shared.util.ImmutableUtils;
 import jakarta.annotation.PostConstruct;
@@ -10,8 +10,8 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-@ConfigurationProperties(prefix = "auth.permission")
-public class PermissionProperties {
+@ConfigurationProperties(prefix = "security.authorization")
+public class AuthorizationProperties {
     private List<String> permitAll;
 
     @PostConstruct

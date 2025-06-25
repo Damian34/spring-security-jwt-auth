@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-@ConfigurationProperties(prefix = "auth.cors")
+@ConfigurationProperties(prefix = "security.cors")
 public class CorsProperties {
     private List<String> allowedHeaders;
     private List<String> allowedMethods;

@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter
 @RequiredArgsConstructor
-@ConfigurationProperties(prefix = "auth.refresh-token")
+@ConfigurationProperties(prefix = "security.refresh-token")
 public class RefreshTokenProperties {
     private final long expirationTime;
     private final long cleanupInterval;

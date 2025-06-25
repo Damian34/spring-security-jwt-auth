@@ -12,14 +12,16 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
 
-auth:
+security:
   jwt:
     secret-key: ebf96689f4d8e85fc5e6e2fd9f59d70775691d57ee0f2e81f35d10181387f963
     expiration-time: 1800 # in seconds
   refresh-token:
     expiration-time: 86400 # in seconds
     cleanup-interval: 3600000
-  permission:
+  hashing:
+    pepper: "d8f3b2c1-4e7a-4b2e-9c2a-7e5f1a2b3c4d"
+  authorization:
     permit-all:
       - /api/auth/**
   cors:

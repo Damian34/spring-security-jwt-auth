@@ -1,6 +1,6 @@
-package com.example.security.auth.context.permission.service;
+package com.example.security.auth.context.authorization.service;
 
-import com.example.security.auth.context.permission.properties.PermissionProperties;
+import com.example.security.auth.context.authorization.properties.AuthorizationProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
@@ -9,13 +9,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PermissionService {
+public class AuthorizationService {
 
-    private final PermissionProperties permissionProperties;
+    private final AuthorizationProperties authorizationProperties;
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
     public List<String> getPermittedPaths() {
-        return permissionProperties.getPermitAll();
+        return authorizationProperties.getPermitAll();
     }
 
     public boolean isPermittedPath(String path) {

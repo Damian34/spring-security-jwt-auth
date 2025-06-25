@@ -1,6 +1,6 @@
 package com.example.security.auth.context.jwt.service;
 
-import com.example.security.auth.context.permission.service.PermissionService;
+import com.example.security.auth.context.authorization.service.AuthorizationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -28,7 +28,7 @@ import java.util.Map;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenService jwtTokenService;
     private final UserDetailsService userDetailsService;
-    private final PermissionService permissionService;
+    private final AuthorizationService authorizationService;
     private final ObjectMapper mapper;
 
     @Override
@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        if (permissionService.isPermittedPath(request.getRequestURI())) {
+        if (authorizationService.isPermittedPath(request.getRequestURI())) {
             filterChain.doFilter(request, response);
             return;
         }

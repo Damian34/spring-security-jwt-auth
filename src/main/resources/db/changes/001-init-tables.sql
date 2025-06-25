@@ -4,7 +4,8 @@
 CREATE TABLE users (
     id UUID PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    salt VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE roles (

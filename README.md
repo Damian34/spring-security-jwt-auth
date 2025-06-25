@@ -10,6 +10,9 @@ A Spring Boot application focused on implementing JWT authentication and refresh
 - **JWT with asymmetric or symmetric key and refresh token**  
   Authentication using JWT with a chosen encryption algorithm (asymmetric like RS256 or symmetric like HS256) and refresh tokens for session renewal.
 
+- **Password hashing with salt and pepper**  
+  User passwords are hashed using a unique per-user salt and a global pepper, providing enhanced security.
+
 - **PostgreSQL database**  
   User data stored in a `user` table in PostgreSQL.
 

@@ -47,6 +47,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private char[] salt;
+
     /**
      * Note (to e.g. solve N+1 problem):
      * 1.
