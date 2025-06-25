@@ -1,7 +1,6 @@
 package com.example.security.shared.model.user;
 
 import com.example.security.shared.model.role.Role;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,20 +26,20 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@DynamicUpdate // update only changed fields at Entity, in result it skip a lot not needed updates
+@SuppressWarnings("java:S1948")
+@DynamicUpdate // update only changed fields at current Entity, in result it skip a lot not needed updates
 @Entity
 @Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails {
-    private static final String USER_SEQUENCE = "users_id_seq";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = USER_SEQUENCE)
-    @SequenceGenerator(name = USER_SEQUENCE, sequenceName = USER_SEQUENCE, allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
     @Setter(value = AccessLevel.NONE)
-    private Long id;
+    private java.util.UUID id;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -50,19 +48,24 @@ public class User implements UserDetails {
     private String password;
 
     /**
-     * Note (solve N+1 problem here):
+     * Note (to e.g. solve N+1 problem):
      * 1.
      * FetchType.EAGER is loading "roles" along with User entity,
      * EAGER is also forcing JOIN operation, so that create only 1 query
      * 2.
-     * FetchType.LAZY is loading "roles" not along with User but at 1st access to the field,
-     * and along with @BatchSize(size = 10) will do much less loading,
-     * so that create 1 query for users and 1 query for each batch loading
+     * FetchType.LAZY is loading "roles" not along with User, but at 1st access to the field,
+     * and along with @BatchSize(size = 10) loading would be less greedy,
+     * so that create 1 query for users and 1 query for each batch loading.
+     * 3.
+     * anyway here I need to have FetchType.EAGER because getAuthorities() works on close hibernate session,
+     * and FetchType.LAZY, @BatchSize and so on, need to have opened the session to work.
      */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "user_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles = new HashSet<>();
 
     @Override

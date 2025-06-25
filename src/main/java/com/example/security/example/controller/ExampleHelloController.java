@@ -1,6 +1,5 @@
 package com.example.security.example.controller;
 
-import com.example.security.common.protocol.response.MessageResponse;
 import com.example.security.shared.model.user.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExampleHelloController {
 
     @GetMapping("/hello")
-    public ResponseEntity<MessageResponse> getUserDetails(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(new MessageResponse("Hello " + user.getUsername()));
+    public ResponseEntity<String> getUserDetails(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok("Hello " + user.getUsername());
     }
 }

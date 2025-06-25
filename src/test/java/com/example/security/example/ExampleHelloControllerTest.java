@@ -1,6 +1,6 @@
 package com.example.security.example;
 
-import com.example.security.TestContainerInitializer;
+import com.example.security.TestPostgresInitializer;
 import com.example.security.TestUserHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,11 +12,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-@ContextConfiguration(initializers = TestContainerInitializer.class)
+@ContextConfiguration(initializers = TestPostgresInitializer.class)
 class ExampleHelloControllerTest {
 
     @Autowired
@@ -40,7 +41,7 @@ class ExampleHelloControllerTest {
         mockMvc.perform(get("/api/hello")
                         .header("Authorization", "Bearer " + loginResponse.getAccessToken()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("Hello " + username));
+                .andExpect(content().string("Hello " + username));
     }
 
     @Test

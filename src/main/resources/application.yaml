@@ -10,22 +10,24 @@ spring:
         default-schema: public
         format-sql: true
   liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.xml
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
 
-security:
+auth:
   jwt:
     secret-key: ebf96689f4d8e85fc5e6e2fd9f59d70775691d57ee0f2e81f35d10181387f963
     expiration-time: 1800 # in seconds
   refresh-token:
     expiration-time: 86400 # in seconds
-    scheduler-clean-delay: 3600000
-
-cors:
-  allowed-headers:
-    - Authorization
-    - Content-Type
-  allowed-methods:
-    - GET
-    - POST
-  allowed-origins:
-    - http://localhost:8080
+    cleanup-interval: 3600000
+  permission:
+    permit-all:
+      - /api/auth/**
+  cors:
+    allowed-headers:
+      - Authorization
+      - Content-Type
+    allowed-methods:
+      - GET
+      - POST
+    allowed-origins:
+      - http://localhost:8080

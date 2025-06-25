@@ -1,8 +1,10 @@
 package com.example.security.auth;
 
-import com.example.security.TestContainerInitializer;
+import com.example.security.TestPostgresInitializer;
 import com.example.security.TestUserHelper;
 import com.example.security.auth.api.protocol.request.LoginRequest;
+import com.example.security.auth.context.jwt.properties.JwtProperties;
+import com.example.security.auth.context.refreshtoken.properties.RefreshTokenProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,23 +22,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-@ContextConfiguration(initializers = TestContainerInitializer.class)
+@ContextConfiguration(initializers = TestPostgresInitializer.class)
 class AuthControllerLoginTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    protected ObjectMapper mapper;
+    private ObjectMapper mapper;
 
     @Autowired
     private TestUserHelper helper;
 
-    @Value("${security.jwt.expiration-time}")
-    private long jwtExpiration;
+    @Autowired
+    private JwtProperties jwtProperties;
 
-    @Value("${security.refresh-token.expiration-time}")
-    private long refreshTokenExpiration;
+    @Autowired
+    private RefreshTokenProperties refreshTokenProperties;
 
     @BeforeEach
     void setup() {
@@ -59,9 +61,9 @@ class AuthControllerLoginTest {
                 .andExpect(jsonPath("$.roles").isArray())
                 .andExpect(jsonPath("$.roles").isNotEmpty())
                 .andExpect(jsonPath("$.accessToken").exists())
-                .andExpect(jsonPath("$.accessTokenExpiresIn").value(jwtExpiration))
+                .andExpect(jsonPath("$.accessTokenExpiresIn").value(jwtProperties.getExpirationTime()))
                 .andExpect(jsonPath("$.refreshToken").exists())
-                .andExpect(jsonPath("$.refreshTokenExpiresIn").value(refreshTokenExpiration));
+                .andExpect(jsonPath("$.refreshTokenExpiresIn").value(refreshTokenProperties.getExpirationTime()));
     }
 
     @Test

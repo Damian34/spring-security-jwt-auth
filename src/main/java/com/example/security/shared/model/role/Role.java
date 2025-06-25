@@ -7,7 +7,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -20,13 +19,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Role {
 
-    private static final String ROLES_SEQUENCE = "roles_id_seq";
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ROLES_SEQUENCE)
-    @SequenceGenerator(name = ROLES_SEQUENCE, sequenceName = ROLES_SEQUENCE, allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
     @Setter(value = AccessLevel.NONE)
-    private Long id;
+    private java.util.UUID id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)

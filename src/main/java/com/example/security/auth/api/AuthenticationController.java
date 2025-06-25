@@ -4,10 +4,9 @@ import com.example.security.auth.api.protocol.request.LoginRequest;
 import com.example.security.auth.api.protocol.request.RegistryRequest;
 import com.example.security.auth.api.protocol.request.RefreshTokenRequest;
 import com.example.security.auth.api.protocol.response.LoginResponse;
-import com.example.security.auth.service.refresh_token.RefreshTokenService;
-import com.example.security.auth.service.user.UserLoginService;
-import com.example.security.auth.service.user.UserRegistryService;
-import com.example.security.common.protocol.response.MessageResponse;
+import com.example.security.auth.context.refreshtoken.service.RefreshTokenService;
+import com.example.security.auth.context.user.service.UserLoginService;
+import com.example.security.auth.context.user.service.UserRegistryService;
 import com.example.security.auth.api.protocol.response.RefreshTokenResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class AuthenticationController {
     private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/registry")
-    public ResponseEntity<MessageResponse> registerUser(@RequestBody @Valid RegistryRequest request) {
+    public ResponseEntity<String> registerUser(@RequestBody @Valid RegistryRequest request) {
         return ResponseEntity.ok(userRegistryService.registerUser(request));
     }
 

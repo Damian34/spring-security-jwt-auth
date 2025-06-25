@@ -1,6 +1,6 @@
 package com.example.security.auth;
 
-import com.example.security.TestContainerInitializer;
+import com.example.security.TestPostgresInitializer;
 import com.example.security.TestUserHelper;
 import com.example.security.auth.api.protocol.request.RegistryRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,19 +16,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-@ContextConfiguration(initializers = TestContainerInitializer.class)
+@ContextConfiguration(initializers = TestPostgresInitializer.class)
 class AuthControllerRegistryTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    protected ObjectMapper mapper;
+    private ObjectMapper mapper;
 
     @Autowired
     private TestUserHelper helper;
@@ -48,7 +49,7 @@ class AuthControllerRegistryTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").isNotEmpty());
+                .andExpect(content().string("User registered successfully!"));
     }
 
     @Test

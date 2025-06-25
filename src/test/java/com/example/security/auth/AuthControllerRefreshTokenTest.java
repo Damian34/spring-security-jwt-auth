@@ -1,6 +1,6 @@
 package com.example.security.auth;
 
-import com.example.security.TestContainerInitializer;
+import com.example.security.TestPostgresInitializer;
 import com.example.security.TestUserHelper;
 import com.example.security.auth.api.protocol.request.RefreshTokenRequest;
 import com.example.security.auth.api.protocol.response.RefreshTokenResponse;
@@ -21,14 +21,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-@ContextConfiguration(initializers = TestContainerInitializer.class)
+@ContextConfiguration(initializers = TestPostgresInitializer.class)
 class AuthControllerRefreshTokenTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    protected ObjectMapper mapper;
+    private ObjectMapper mapper;
 
     @Autowired
     private TestUserHelper helper;

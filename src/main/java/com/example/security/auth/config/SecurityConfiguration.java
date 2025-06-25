@@ -1,7 +1,8 @@
 package com.example.security.auth.config;
 
-import com.example.security.auth.config.data.CorsProperties;
-import com.example.security.auth.service.jwt.JwtAuthenticationFilter;
+import com.example.security.auth.config.properties.CorsProperties;
+import com.example.security.auth.context.jwt.service.JwtAuthenticationFilter;
+import com.example.security.auth.context.permission.service.PermissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final PermissionService permissionService;
     private final CorsProperties corsProperties;
 
     @Bean
@@ -30,7 +32,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**")
+                        .requestMatchers(permissionService.getPermittedPaths().toArray(new String[0]))
                         .permitAll()
                         .anyRequest()
                         .authenticated()
