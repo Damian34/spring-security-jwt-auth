@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "refresh_tokens")
@@ -30,7 +31,7 @@ public class RefreshToken {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(updatable = false, nullable = false)
     @Setter(value = AccessLevel.NONE)
-    private java.util.UUID id;
+    private UUID id;
 
     @Column(nullable = false, unique = true)
     private String token;
